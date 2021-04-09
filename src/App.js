@@ -16,6 +16,7 @@ class App extends Component {
     isLoading: false,
     error: null,
     showModal: false,
+    largeImg: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -65,7 +66,8 @@ class App extends Component {
         <ImageGallery pics={pics} />
 
         {showModal && <Modal onClose={this.toggleModal} />}
-        {isLoading && <LoaderComponent />}
+        {/* {isLoading && <LoaderComponent />} */}
+        <LoaderComponent />
         <Button />
       </ErrorBoundary>
     );
