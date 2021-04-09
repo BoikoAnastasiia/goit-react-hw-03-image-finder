@@ -1,26 +1,66 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Loader from "react-loader-spinner";
+import { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Searchbar from "./components/Searchbar";
+import ImageGallery from "./components/ImageGallery";
+import LoaderComponent from "./components/Loader";
+import Button from "./components/Button/Button";
+import Modal from "./components/Modal";
+// import picsApi from "./services/pics-api";
+
+class App extends Component {
+  // state = {
+  //   pics: [],
+  //   currentPage: 1,
+  //   searchQuery: "",
+  //   isLoading: false,
+  //   error: null,
+  // };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.searchQuery !== this.state.searchQuery) {
+  //     this.fetchPics();
+  //   }
+  // }
+
+  // onChangeQuery = (query) => {
+  //   this.setState({
+  //     searchQuery: query,
+  //     currentPage: 1,
+  //     pics: [],
+  //     error: null,
+  //   });
+  // };
+
+  // fetchPics = () => {
+  //   const { currentPage, searchQuery } = this.state;
+  //   const options = { searchQuery, currentPage };
+
+  //   this.setState({ isLoading: true });
+
+  //   picsApi
+  //     .fetchPics(options)
+  //     .then((pics) => {
+  //       this.setState((prevState) => ({
+  //         pics: [...prevState.pics, ...pics],
+  //         currentPage: prevState.currentPage + 1,
+  //       }));
+  //     })
+  //     .catch((error) => this.setState({ error }))
+  //     .finally(() => this.setState({ isLoading: false }));
+  // };
+
+  render() {
+    return (
+      <>
+        <h1>Test </h1>
+        {/* <Searchbar onSubmit={this.onChangeQuery} /> */}
+        {/* <ImageGallery /> */}
+        {/* <Modal /> */}
+        {/* <LoaderComponent /> */}
+        {/* <Button /> */}
+      </>
+    );
+  }
 }
 
 export default App;
