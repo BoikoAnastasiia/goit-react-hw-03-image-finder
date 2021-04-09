@@ -6,6 +6,7 @@ import LoaderComponent from "./components/Loader";
 import Button from "./components/Button";
 import Modal from "./components/Modal";
 import picsApi from "./services/pics-api";
+import ErrorBoundary from "./components/error";
 
 class App extends Component {
   state = {
@@ -14,6 +15,7 @@ class App extends Component {
     searchQuery: "",
     isLoading: false,
     error: null,
+    showModal: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,6 +23,10 @@ class App extends Component {
       this.fetchPics();
     }
   }
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
 
   onChangeQuery = (query) => {
     this.setState({
@@ -46,20 +52,22 @@ class App extends Component {
         }));
       })
       .catch((error) => this.setState({ error }))
+      .catch(this.state.pics)
       .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
-    const { pics } = this.state;
+    const { pics, isLoading, showModal } = this.state;
 
     return (
-      <>
+      <ErrorBoundary>
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery pics={pics} />
-        {/* <Modal /> */}
-        {/* <LoaderComponent /> */}
+
+        {showModal && <Modal onClose={this.toggleModal} />}
+        {isLoading && <LoaderComponent />}
         <Button />
-      </>
+      </ErrorBoundary>
     );
   }
 }
