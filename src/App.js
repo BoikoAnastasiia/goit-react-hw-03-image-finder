@@ -66,8 +66,8 @@ class App extends Component {
         <ImageGallery pics={pics} />
 
         {showModal && <Modal onClose={this.toggleModal} />}
-        {/* {isLoading && <LoaderComponent />} */}
-        <LoaderComponent />
+        {isLoading && <LoaderComponent />}
+
         <Button />
       </ErrorBoundary>
     );
