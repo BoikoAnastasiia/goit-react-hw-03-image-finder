@@ -50,10 +50,12 @@ class App extends Component {
   };
 
   render() {
+    const { pics } = this.state;
+
     return (
       <>
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery />
+        <ImageGallery pics={pics} />
         {/* <Modal /> */}
         {/* <LoaderComponent /> */}
         <Button />
