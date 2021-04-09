@@ -4,4 +4,5 @@ const ImageGalleryItem = ({ pics }) =>
       <img src={previewURL} alt={tags} className="ImageGalleryItem-image" />
     </li>
   ));
+
 export default ImageGalleryItem;

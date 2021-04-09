@@ -1,7 +1,7 @@
-const Modal = () => (
+const Modal = (largeImage, altText) => (
   <div className="Overlay">
     <div className="Modal">
-      <img src="" alt="" />
+      <img src={largeImage} alt={altText} />
     </div>
   </div>
 );

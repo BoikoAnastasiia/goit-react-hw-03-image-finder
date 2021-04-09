@@ -59,6 +59,7 @@ class App extends Component {
 
   render() {
     const { pics, isLoading, showModal } = this.state;
+    const shouldRenderLoadButton = pics.length > 0 && !isLoading;
 
     return (
       <ErrorBoundary>
@@ -68,7 +69,7 @@ class App extends Component {
         {showModal && <Modal onClose={this.toggleModal} />}
         {isLoading && <LoaderComponent />}
 
-        <Button />
+        {shouldRenderLoadButton && <Button onClick={this.fetchPics} />}
       </ErrorBoundary>
     );
   }
