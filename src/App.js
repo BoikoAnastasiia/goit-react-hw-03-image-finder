@@ -46,14 +46,14 @@ class App extends Component {
 
     picsApi
       .fetchPics(options)
-      .then((pics) => {
+      .then(({ hits }) => {
         this.setState((prevState) => ({
-          pics: [...prevState.pics, ...pics],
+          pics: [...prevState.hits, ...hits],
           currentPage: prevState.currentPage + 1,
         }));
       })
       .catch((error) => this.setState({ error }))
-      .catch(this.state.pics)
+      .catch(console.log(this.state.pics))
       .finally(() => this.setState({ isLoading: false }));
   };
 
