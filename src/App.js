@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
@@ -9,6 +9,11 @@ import picsApi from "./services/pics-api";
 import ErrorBoundary from "./components/error";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.listRef = React.createRef();
+  }
+
   state = {
     pics: [],
     currentPage: 1,
@@ -19,9 +24,23 @@ class App extends Component {
     largeImg: "",
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevState.pics.length < this.state.pics.length) {
+      const list = this.listRef.current;
+      return list.scrollHeight - list.scrollTop;
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.fetchPics();
+    }
+    if (snapshot !== null) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }
 
@@ -48,13 +67,6 @@ class App extends Component {
     console.dir(event.currentTarget);
   };
 
-  moveDown = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
-  };
-
   fetchPics = () => {
     const { currentPage, searchQuery } = this.state;
     const options = { searchQuery, currentPage };
@@ -71,8 +83,6 @@ class App extends Component {
       })
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
-
-    this.moveDown();
   };
 
   render() {
@@ -80,7 +90,7 @@ class App extends Component {
     const shouldRenderLoadButton = pics.length > 0 && !isLoading;
 
     return (
-      <ErrorBoundary>
+      <ErrorBoundary ref={this.listRef}>
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery pics={pics} onClickModal={this.showTarget} />
 
