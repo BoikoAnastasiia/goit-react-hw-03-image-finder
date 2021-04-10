@@ -12,3 +12,4 @@ const fetchPics = ({ searchQuery = "", currentPage = 1, pageSize = 12 }) => {
 };
 
 export default { fetchPics };
+// console.dir(response.hits)
