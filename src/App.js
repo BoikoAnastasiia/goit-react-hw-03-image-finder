@@ -57,16 +57,16 @@ class App extends Component {
   };
 
   render() {
-    const { pics, isLoading, showModal, largeImg } = this.state;
+    const { pics, isLoading, showModal, largeImg, alt } = this.state;
     const shouldRenderLoadButton = pics.length > 0 && !isLoading;
-    console.log(pics);
+
     return (
       <ErrorBoundary>
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery pics={pics} />
+        <ImageGallery pics={pics} onClickModal={this.toggleModal} />
 
         {showModal && (
-          <Modal onClose={this.toggleModal} largeImage={largeImg} />
+          <Modal onClose={this.toggleModal} largeImage={largeImg} alt={alt} />
         )}
         {isLoading && <LoaderComponent />}
 

@@ -9,7 +9,7 @@ const fetchPics = ({ searchQuery = "", currentPage = 1, pageSize = 12 }) => {
       `https://pixabay.com/api/?key=${key}&q=${searchQuery}&page=${currentPage}&image_type=photo&orientation=horizontal&per_page=${pageSize}
 `
     )
-    .then((response) => response.hits)
+    .then((response) => response.data)
     .catch(console.log);
 };
 
