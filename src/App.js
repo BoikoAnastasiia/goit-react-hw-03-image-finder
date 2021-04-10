@@ -36,6 +36,7 @@ class App extends Component {
       pics: [],
       error: null,
     });
+    console.log("i did it");
   };
 
   fetchPics = () => {
@@ -48,25 +49,26 @@ class App extends Component {
       .fetchPics(options)
       .then(({ hits }) => {
         this.setState((prevState) => ({
-          pics: [...prevState.hits, ...hits],
+          pics: [...prevState.pics, ...hits],
           currentPage: prevState.currentPage + 1,
         }));
       })
       .catch((error) => this.setState({ error }))
-      .catch(console.log(this.state.pics))
       .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
-    const { pics, isLoading, showModal } = this.state;
+    const { pics, isLoading, showModal, largeImg } = this.state;
     const shouldRenderLoadButton = pics.length > 0 && !isLoading;
-
+    console.log(pics);
     return (
       <ErrorBoundary>
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery pics={pics} />
 
-        {showModal && <Modal onClose={this.toggleModal} />}
+        {showModal && (
+          <Modal onClose={this.toggleModal} largeImage={largeImg} />
+        )}
         {isLoading && <LoaderComponent />}
 
         {shouldRenderLoadButton && <Button onClick={this.fetchPics} />}
