@@ -1,12 +1,5 @@
-const Button = () => (
-  <button
-    type="button"
-    className="Button"
-    onClick={window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    })}
-  >
+const Button = ({ loadMore }) => (
+  <button type="button" className="Button" onClick={loadMore}>
     Load more
   </button>
 );

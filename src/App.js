@@ -29,12 +29,29 @@ class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
+  // findPic = (event) => {
+  //   if (this.state.pics.id === event.currentTarget.id) {
+  //     this.setState({ largeImg: this.state.pics.src });
+  //   }
+  // };
+
   onChangeQuery = (query) => {
     this.setState({
       searchQuery: query,
       currentPage: 1,
       pics: [],
       error: null,
+    });
+  };
+
+  showTarget = (event) => {
+    console.dir(event.currentTarget);
+  };
+
+  moveDown = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
     });
   };
 
@@ -54,6 +71,8 @@ class App extends Component {
       })
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
+
+    this.moveDown();
   };
 
   render() {
@@ -63,14 +82,14 @@ class App extends Component {
     return (
       <ErrorBoundary>
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery pics={pics} onClickModal={this.toggleModal} />
+        <ImageGallery pics={pics} onClickModal={this.showTarget} />
 
         {showModal && (
           <Modal onClose={this.toggleModal} largeImage={largeImg} alt={alt} />
         )}
         {isLoading && <LoaderComponent />}
 
-        {shouldRenderLoadButton && <Button onClick={this.fetchPics} />}
+        {shouldRenderLoadButton && <Button loadMore={this.fetchPics} />}
       </ErrorBoundary>
     );
   }
