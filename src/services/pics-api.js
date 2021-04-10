@@ -1,3 +1,5 @@
+import propTypes from "prop-types";
+
 import axios from "axios";
 const key = "3533171-8055817a9c2a16331b7f6fbf1";
 
@@ -13,3 +15,9 @@ const fetchPics = ({ searchQuery = "", currentPage = 1, pageSize = 12 }) => {
 
 export default { fetchPics };
 // console.dir(response.hits)
+
+fetchPics.propTypes = {
+  searchQuery: propTypes.string.isRequired,
+  currentPage: propTypes.number.isRequired,
+  pageSize: propTypes.number.isRequired,
+};

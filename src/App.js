@@ -36,7 +36,6 @@ class App extends Component {
       pics: [],
       error: null,
     });
-    console.log("i did it");
   };
 
   fetchPics = () => {
