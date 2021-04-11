@@ -22,6 +22,7 @@ class App extends Component {
     error: null,
     showModal: false,
     largeImg: "",
+    alt: "",
   };
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -48,11 +49,13 @@ class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
-  // findPic = (event) => {
-  //   if (this.state.pics.id === event.currentTarget.id) {
-  //     this.setState({ largeImg: this.state.pics.src });
-  //   }
-  // };
+  findPic = (event) => {
+    console.log(
+      this.state.pics.find(
+        (pic) => pic.webformatURL === event.currentTarget.src
+      )
+    );
+  };
 
   onChangeQuery = (query) => {
     this.setState({
@@ -63,8 +66,13 @@ class App extends Component {
     });
   };
 
-  showTarget = (event) => {
-    console.dir(event.currentTarget);
+  setLargeImage = (event) => {
+    this.setState({
+      largeImg: event.currentTarget.srcset,
+      alt: event.currentTarget.alt,
+    });
+    // console.dir(event.currentTarget);
+    this.toggleModal();
   };
 
   fetchPics = () => {
@@ -88,11 +96,11 @@ class App extends Component {
   render() {
     const { pics, isLoading, showModal, largeImg, alt } = this.state;
     const shouldRenderLoadButton = pics.length > 0 && !isLoading;
-
+    console.log(pics);
     return (
       <ErrorBoundary ref={this.listRef}>
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery pics={pics} onClickModal={this.showTarget} />
+        <ImageGallery pics={pics} onClickModal={this.setLargeImage} />
 
         {showModal && (
           <Modal onClose={this.toggleModal} largeImage={largeImg} alt={alt} />
