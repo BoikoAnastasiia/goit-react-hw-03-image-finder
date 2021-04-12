@@ -26,7 +26,10 @@ class App extends Component {
   };
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    if (prevState.pics.length < this.state.pics.length) {
+    if (
+      prevState.pics.length < this.state.pics.length &&
+      this.state.currentPage > 1
+    ) {
       const list = this.listRef.current;
       return list.scrollHeight - list.scrollTop;
     }
@@ -37,7 +40,7 @@ class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.fetchPics();
     }
-    if (snapshot !== null) {
+    if (snapshot !== null && this.state.currentPage > 1) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
