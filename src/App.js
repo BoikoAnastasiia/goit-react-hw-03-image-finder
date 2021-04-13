@@ -52,14 +52,6 @@ class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
-  findPic = (event) => {
-    console.log(
-      this.state.pics.find(
-        (pic) => pic.webformatURL === event.currentTarget.src
-      )
-    );
-  };
-
   onChangeQuery = (query) => {
     this.setState({
       searchQuery: query,
